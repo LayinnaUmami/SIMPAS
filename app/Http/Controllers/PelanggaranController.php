@@ -36,7 +36,7 @@ class PelanggaranController extends Controller
         $this->requireAdmin();
 
         return view('pelanggaran.form', [
-            'pelanggaran' => new Pelanggaran(),
+            'pelanggaran' => new Pelanggaran,
             'master' => config('simpas.master'),
             'santris' => Santri::aktif()->orderBy('nis')->get(),
         ]);
@@ -102,8 +102,8 @@ class PelanggaranController extends Controller
         return $request->validate([
             'santri_id' => ['required', 'exists:santris,id'],
             'tanggal' => ['required', 'date'],
-            'jenis' => ['required', 'in:' . implode(',', config('simpas.master.jenis_pelanggaran'))],
-            'tingkat' => ['required', 'in:' . implode(',', config('simpas.master.tingkat_pelanggaran'))],
+            'jenis' => ['required', 'in:'.implode(',', config('simpas.master.jenis_pelanggaran'))],
+            'tingkat' => ['required', 'in:'.implode(',', config('simpas.master.tingkat_pelanggaran'))],
             'keterangan' => ['nullable', 'string', 'max:1000'],
             'poin' => ['required', 'integer', 'between:1,1000'],
         ]);

@@ -5,18 +5,18 @@ use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\PelanggaranController;
+use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RankingController;
-use App\Http\Controllers\SantriController;
 use App\Http\Controllers\SampahController;
+use App\Http\Controllers\SantriController;
 use App\Http\Controllers\WaliController;
 use Illuminate\Support\Facades\Route;
 
 /* ------------------------------------------------------------------ */
-/* Autentikasi                                                         */
+/* Autentikasi */
 /* ------------------------------------------------------------------ */
 
 Route::middleware('guest')->group(function () {
@@ -38,7 +38,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 Route::redirect('/', '/dashboard');
 
 /* ------------------------------------------------------------------ */
-/* Halaman utama                                                       */
+/* Halaman utama */
 /* ------------------------------------------------------------------ */
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -94,9 +94,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('pengaturan.index')->middleware('admin');
     Route::post('/pengaturan', [PengaturanController::class, 'simpan'])->name('pengaturan.simpan')->middleware('admin');
 
-Route::post('/pengaturan/hapus-semua-data', [PengaturanController::class, 'hapusSemuaData'])
-    ->name('pengaturan.hapus-semua-data')
-    ->middleware('admin');
+    Route::post('/pengaturan/hapus-semua-data', [PengaturanController::class, 'hapusSemuaData'])
+        ->name('pengaturan.hapus-semua-data')
+        ->middleware('admin');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -104,7 +104,7 @@ Route::post('/pengaturan/hapus-semua-data', [PengaturanController::class, 'hapus
 });
 
 /* ------------------------------------------------------------------ */
-/* Kelola Akun (khusus Admin/Pengurus)                                 */
+/* Kelola Akun (khusus Admin/Pengurus) */
 /* ------------------------------------------------------------------ */
 
 /*
@@ -120,7 +120,7 @@ Route::middleware(['auth', 'admin'])->prefix('akun')->name('akun.')->group(funct
 });
 
 /* ------------------------------------------------------------------ */
-/* Wali Santri                                                         */
+/* Wali Santri */
 /* ------------------------------------------------------------------ */
 Route::middleware(['auth', 'wali'])->prefix('wali')->name('wali.')->group(function () {
     Route::get('/dashboard', [WaliController::class, 'dashboard'])->name('dashboard');

@@ -25,7 +25,7 @@ class EnsureAccountActive
     {
         $user = $request->user();
 
-        if ($user && !$user->isActive()) {
+        if ($user && ! $user->isActive()) {
             // Putuskan sesi lebih dulu. Kalau tidak, pengguna hanya diarahkan ke
             // login, masuk lagi, ditolak lagi, dan seterusnya.
             Auth::logout();

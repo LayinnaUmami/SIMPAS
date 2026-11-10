@@ -29,7 +29,7 @@ class Pelanggaran extends Model
 
     public function scopeCariSantri($q, ?string $keyword)
     {
-        if (!$keyword) {
+        if (! $keyword) {
             return $q;
         }
 

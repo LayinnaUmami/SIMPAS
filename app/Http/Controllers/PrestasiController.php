@@ -36,7 +36,7 @@ class PrestasiController extends Controller
         $this->requireAdmin();
 
         return view('prestasi.form', [
-            'prestasi' => new Prestasi(),
+            'prestasi' => new Prestasi,
             'master' => config('simpas.master'),
             'santris' => Santri::aktif()->orderBy('nis')->get(),
         ]);
@@ -107,9 +107,9 @@ class PrestasiController extends Controller
         return $request->validate([
             'santri_id' => ['required', 'exists:santris,id'],
             'tanggal' => ['required', 'date'],
-            'jenis' => ['required', 'in:' . implode(',', config('simpas.master.jenis_prestasi'))],
+            'jenis' => ['required', 'in:'.implode(',', config('simpas.master.jenis_prestasi'))],
             'nama_prestasi' => ['required', 'string', 'max:190'],
-            'tingkat' => ['required', 'in:' . implode(',', config('simpas.master.tingkat_prestasi'))],
+            'tingkat' => ['required', 'in:'.implode(',', config('simpas.master.tingkat_prestasi'))],
             'penyelenggara' => ['nullable', 'string', 'max:120'],
             'keterangan' => ['nullable', 'string', 'max:1000'],
             'poin' => ['required', 'integer', 'between:0,1000'],

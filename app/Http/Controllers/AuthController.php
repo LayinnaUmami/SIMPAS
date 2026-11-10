@@ -48,7 +48,7 @@ class AuthController extends Controller
     private const DECAY_SECONDS = 900;
 
     /* ------------------------------------------------------------------ */
-    /* Tampilan                                                            */
+    /* Tampilan */
     /* ------------------------------------------------------------------ */
 
     /**
@@ -67,7 +67,7 @@ class AuthController extends Controller
     }
 
     /* ------------------------------------------------------------------ */
-    /* Proses masuk                                                       */
+    /* Proses masuk */
     /* ------------------------------------------------------------------ */
 
     public function login(Request $request)
@@ -96,7 +96,7 @@ class AuthController extends Controller
 
             throw ValidationException::withMessages([
                 'username' => 'Terlalu banyak percobaan masuk. '
-                    . 'Coba lagi dalam ' . ceil($sisaDetik / 60) . ' menit.',
+                    .'Coba lagi dalam '.ceil($sisaDetik / 60).' menit.',
             ])->status(429);
         }
 
@@ -174,7 +174,7 @@ class AuthController extends Controller
     }
 
     /* ------------------------------------------------------------------ */
-    /* Proses keluar                                                      */
+    /* Proses keluar */
     /* ------------------------------------------------------------------ */
 
     public function logout(Request $request)
@@ -200,7 +200,7 @@ class AuthController extends Controller
     }
 
     /* ------------------------------------------------------------------ */
-    /* Pembantu                                                           */
+    /* Pembantu */
     /* ------------------------------------------------------------------ */
 
     /**
@@ -243,6 +243,6 @@ class AuthController extends Controller
      */
     private function throttleKey(Request $request, string $kode): string
     {
-        return 'login:' . Str::transliterate(Str::lower($kode) . '|' . $request->ip());
+        return 'login:'.Str::transliterate(Str::lower($kode).'|'.$request->ip());
     }
 }

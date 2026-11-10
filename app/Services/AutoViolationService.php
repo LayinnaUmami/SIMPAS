@@ -29,7 +29,7 @@ class AutoViolationService
     {
         $cfg = config("simpas.activities.{$type}");
 
-        if (!config('simpas.auto_violation.enabled', true)) {
+        if (! config('simpas.auto_violation.enabled', true)) {
             return 0;
         }
 
@@ -77,12 +77,12 @@ class AutoViolationService
             }
 
             $santri = Santri::find($santriId);
-            if (!$santri) {
+            if (! $santri) {
                 continue;
             }
 
             $rentang = Carbon::parse($mulai)->translatedFormat('d M Y')
-                . ' - ' . Carbon::parse($akhir)->translatedFormat('d M Y');
+                .' - '.Carbon::parse($akhir)->translatedFormat('d M Y');
 
             Pelanggaran::create([
                 'santri_id' => $santriId,

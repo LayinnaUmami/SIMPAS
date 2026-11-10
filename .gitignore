@@ -45,3 +45,6 @@ test-results/
 playwright-report/
 .env.e2e
 database/e2e.sqlite
+
+SANTRI_RQ_SESUAI_TEMPLATE.xlsx
+*.xlsx

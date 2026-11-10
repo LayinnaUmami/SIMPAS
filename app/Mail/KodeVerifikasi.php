@@ -22,14 +22,13 @@ class KodeVerifikasi extends Mailable
         public string $nama,
         public string $kode,
         public $kedaluwarsa,
-    ) {
-    }
+    ) {}
 
     public function build()
     {
         $menit = max(1, now()->diffInMinutes($this->kedaluwarsa));
 
-        return $this->subject('Kode verifikasi akun ' . config('simpas.nama_aplikasi'))
+        return $this->subject('Kode verifikasi akun '.config('simpas.nama_aplikasi'))
             ->view('mail.kode-verifikasi')
             ->with([
                 'nama' => $this->nama,

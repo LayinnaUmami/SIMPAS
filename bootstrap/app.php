@@ -2,21 +2,23 @@
 
 use App\Http\Middleware\EnsureAccountActive;
 use App\Http\Middleware\EnsureAdmin;
+use App\Http\Middleware\EnsureWali;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__ . '/../routes/web.php',
-        commands: __DIR__ . '/../routes/console.php',
+        web: __DIR__.'/../routes/web.php',
+        commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'admin' => EnsureAdmin::class,
-            'wali' => \App\Http\Middleware\EnsureWali::class,
+            'wali' => EnsureWali::class,
             'aktif' => EnsureAccountActive::class,
         ]);
 
@@ -36,7 +38,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // Sesi habis/CSRF kedaluwarsa: arahkan balik dengan pesan Bahasa Indonesia.
-        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $e, Request $request) {
+        $exceptions->render(function (HttpExceptionInterface $e, Request $request) {
             if ($e->getStatusCode() === 419) {
                 return redirect()->back()
                     ->withInput()

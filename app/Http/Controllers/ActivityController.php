@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Santri;
 use App\Services\AttendanceService;
 use App\Services\PeriodResolver;
 use Carbon\Carbon;
@@ -114,7 +115,7 @@ class ActivityController extends Controller
         $rows = [];
         foreach ($records as $rec) {
             $id = $rec->santri_id;
-            if (!isset($rows[$id])) {
+            if (! isset($rows[$id])) {
                 $rows[$id] = [
                     'santri' => $rec->santri,
                     'tanggal_terakhir' => $rec->tanggal,
@@ -156,7 +157,7 @@ class ActivityController extends Controller
         $cfg = $this->config($type);
         $tanggal = $request->filled('tanggal') ? $request->tanggal : today()->format('Y-m-d');
 
-        $santri = \App\Models\Santri::findOrFail($santriId);
+        $santri = Santri::findOrFail($santriId);
         $this->authorizeSantri($santri);
 
         $records = $cfg['model']::where('santri_id', $santriId)
@@ -192,7 +193,7 @@ class ActivityController extends Controller
         $cfg = $this->config($type);
         $tanggal = $request->filled('tanggal') ? $request->tanggal : today()->format('Y-m-d');
 
-        $santri = \App\Models\Santri::findOrFail($santriId);
+        $santri = Santri::findOrFail($santriId);
         $records = $cfg['model']::where('santri_id', $santriId)
             ->where('tanggal', $tanggal)
             ->get();

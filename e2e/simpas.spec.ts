@@ -65,6 +65,11 @@ test("login admin berhasil dan password salah ditolak", async ({ page }) => {
 test("admin membuat akun wali baru, menautkan anak kedua, dan wali hanya melihat data anak", async ({
     page,
 }) => {
+    const runId = Date.now().toString();
+    const waliUsername = `e2e-wali-${runId}`;
+    const namaSantriPertama = `Santri E2E Pertama ${runId}`;
+    const namaSantriKedua = `Santri E2E Kedua ${runId}`;
+
     await test.step("Given admin masuk dan membuka formulir tambah santri", async () => {
         await login(page, adminCredentials.username, adminCredentials.password);
         await expect(page).toHaveURL(/\/dashboard$/);
@@ -74,51 +79,56 @@ test("admin membuat akun wali baru, menautkan anak kedua, dan wali hanya melihat
 
     await test.step("When admin menambahkan santri dengan akun wali baru", async () => {
         await isiFormSantri(page, {
-            nis: "E2E-NEW-001",
-            nama: "Santri E2E Pertama",
+            nis: `E2E-${runId}-001`,
+            nama: namaSantriPertama,
         });
         await page.locator("#nama_wali").fill("Wali E2E Baru");
-        await page.locator("#wali_username").fill("e2e-wali-baru");
+        await page.locator("#wali_username").fill(waliUsername);
         await page.locator("#wali_password").fill("E2E-Wali-Baru-2026");
-        await page.getByRole("button", { name: "Simpan" }).click();
+        await Promise.all([
+            page.waitForURL(/\/santri\/\d+$/, { timeout: 15_000 }),
+            page.getByRole("button", { name: "Simpan" }).click(),
+        ]);
     });
 
     await test.step("Then akun wali baru tampil di halaman Akun Pengguna", async () => {
-        await expect(page).toHaveURL(/\/santri\/\d+$/);
         await page.goto("/akun");
         await expect(page.getByRole("heading", { name: "Kelola Akun Pengguna" })).toBeVisible();
-        await expect(page.getByText("e2e-wali-baru", { exact: true })).toBeVisible();
-        await expect(page.getByText("Santri E2E Pertama", { exact: true })).toBeVisible();
+        await expect(page.getByText(waliUsername, { exact: true })).toBeVisible();
+        await expect(page.getByText(namaSantriPertama, { exact: true })).toBeVisible();
     });
 
     await test.step("When admin menambahkan santri kedua dan memilih wali yang sama", async () => {
         await page.goto("/santri/create");
         await isiFormSantri(page, {
-            nis: "E2E-NEW-002",
-            nama: "Santri E2E Kedua",
+            nis: `E2E-${runId}-002`,
+            nama: namaSantriKedua,
         });
         const waliOption = page
             .locator("#wali_id option")
-            .filter({ hasText: "e2e-wali-baru" });
+            .filter({ hasText: waliUsername });
         const waliId = await waliOption.getAttribute("value");
         expect(waliId).toBeTruthy();
         await page.locator("#wali_id").selectOption(waliId!);
         await expect(page.locator("#wali_username")).toBeDisabled();
-        await page.getByRole("button", { name: "Simpan" }).click();
+        await Promise.all([
+            page.waitForURL(/\/santri\/\d+$/, { timeout: 15_000 }),
+            page.getByRole("button", { name: "Simpan" }).click(),
+        ]);
     });
 
     await test.step("Then wali yang ada memiliki dua anak tanpa akun wali baru", async () => {
         await page.goto("/akun");
-        await expect(page.getByText("Santri E2E Pertama", { exact: true })).toBeVisible();
-        await expect(page.getByText("Santri E2E Kedua", { exact: true })).toBeVisible();
+        await expect(page.getByText(namaSantriPertama, { exact: true })).toBeVisible();
+        await expect(page.getByText(namaSantriKedua, { exact: true })).toBeVisible();
         await expect(
-            page.locator("tbody tr").filter({ hasText: "e2e-wali-baru" }),
+            page.locator("tbody tr").filter({ hasText: waliUsername }),
         ).toHaveCount(1);
     });
 
     await test.step("When wali masuk menggunakan akun yang baru dibuat", async () => {
         await page.getByRole("button", { name: "Keluar" }).click();
-        await login(page, "e2e-wali-baru", "E2E-Wali-Baru-2026");
+        await login(page, waliUsername, "E2E-Wali-Baru-2026");
     });
 
     await test.step("Then wali melihat dua anak dan tidak melihat tombol ubah data", async () => {
@@ -126,8 +136,8 @@ test("admin membuat akun wali baru, menautkan anak kedua, dan wali hanya melihat
         const anakSelector = page.locator("#wali-santri-select");
         await expect(anakSelector).toBeVisible();
         await expect(anakSelector.locator("option")).toHaveCount(2);
-        await expect(anakSelector).toContainText("Santri E2E Pertama");
-        await expect(anakSelector).toContainText("Santri E2E Kedua");
+        await expect(anakSelector).toContainText(namaSantriPertama);
+        await expect(anakSelector).toContainText(namaSantriKedua);
         await page.getByRole("link", { name: "Data Santri" }).click();
         await expect(page).toHaveURL(/\/santri\/\d+$/);
         await expect(page.getByRole("link", { name: "Edit", exact: true })).toHaveCount(0);

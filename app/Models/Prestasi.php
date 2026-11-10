@@ -23,13 +23,13 @@ class Prestasi extends Model
 
     public function getBuktiUrlAttribute(): ?string
     {
-        if (!$this->bukti) {
+        if (! $this->bukti) {
             return null;
         }
 
         return str_starts_with($this->bukti, 'http') || str_starts_with($this->bukti, '/')
             ? $this->bukti
-            : asset('storage/' . $this->bukti);
+            : asset('storage/'.$this->bukti);
     }
 
     public function scopePadaPeriode($q, string $mulai, string $akhir)
@@ -39,7 +39,7 @@ class Prestasi extends Model
 
     public function scopeCariSantri($q, ?string $keyword)
     {
-        if (!$keyword) {
+        if (! $keyword) {
             return $q;
         }
 

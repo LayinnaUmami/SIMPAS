@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Mail\KodeVerifikasi;
 use App\Models\Santri;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -28,7 +29,7 @@ use Illuminate\Support\Str;
 class PendaftaranService
 {
     /* ------------------------------------------------------------------ */
-    /* Pengaturan                                                          */
+    /* Pengaturan */
     /* ------------------------------------------------------------------ */
 
     private function pengaturan(string $kunci, mixed $bawaan = null): mixed
@@ -47,7 +48,7 @@ class PendaftaranService
     }
 
     /* ------------------------------------------------------------------ */
-    /* Penerbitan kode                                                     */
+    /* Penerbitan kode */
     /* ------------------------------------------------------------------ */
 
     /**
@@ -57,7 +58,7 @@ class PendaftaranService
      * Mengembalikan kode dalam bentuk TEKS POLOS hanya supaya bisa ditampilkan
      * pada mode pengembangan. Kode yang disimpan di basis data adalah hash-nya.
      *
-     * @return array{0: string, 1: User, 2: \Illuminate\Support\Collection}
+     * @return array{0: string, 1: User, 2: Collection}
      */
     public function terbitkanKode(string $email, string $nama, ?string $telepon, ?string $alamatIp): array
     {
@@ -71,7 +72,7 @@ class PendaftaranService
 
         $kedaluwarsa = now()->addMinutes((int) $this->pengaturan('ttl', 15));
 
-        $akun = DB::transaction(function () use ($email, $nama, $telepon, $alamatIp, $kode, $kedaluwarsa) {
+        $akun = DB::transaction(function () use ($email, $nama, $telepon) {
             // Kode lama untuk email yang sama dibatalkan lebih dulu, supaya
             // hanya ada satu kode yang berlaku pada satu waktu.
             DB::table('account_verifications')
@@ -158,7 +159,7 @@ class PendaftaranService
     }
 
     /* ------------------------------------------------------------------ */
-    /* Verifikasi                                                         */
+    /* Verifikasi */
     /* ------------------------------------------------------------------ */
 
     /**
@@ -236,7 +237,7 @@ class PendaftaranService
     }
 
     /* ------------------------------------------------------------------ */
-    /* Pembantu                                                           */
+    /* Pembantu */
     /* ------------------------------------------------------------------ */
 
     /**
@@ -252,7 +253,7 @@ class PendaftaranService
      * Mengetahui nomor ini tidak memberi akses ke data anak mana pun sebelum
      * akun aktif dan tautannya diperiksa.
      *
-     * @return \Illuminate\Support\Collection<int, Santri>
+     * @return Collection<int, Santri>
      */
     public function cariSantriDariTelepon(?string $telepon)
     {
@@ -298,7 +299,7 @@ class PendaftaranService
             return null;
         }
 
-        return '62' . $angka;
+        return '62'.$angka;
     }
 
     /**
@@ -319,7 +320,7 @@ class PendaftaranService
 
         while (User::withTrashed()->where('username', $kandidat)->exists()) {
             $nomor++;
-            $kandidat = Str::limit($dasar, 100 - strlen((string) $nomor) - 1, '') . $nomor;
+            $kandidat = Str::limit($dasar, 100 - strlen((string) $nomor) - 1, '').$nomor;
         }
 
         return $kandidat;

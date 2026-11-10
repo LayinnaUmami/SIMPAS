@@ -10,8 +10,8 @@ use App\Services\PeriodResolver;
 use App\Services\RankingService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 /**
  * Halaman untuk Wali Santri.
@@ -538,7 +538,7 @@ class WaliController extends Controller
 
     private function tanggalInput(mixed $value): string
     {
-        if (!is_scalar($value) || trim((string) $value) === '') {
+        if (! is_scalar($value) || trim((string) $value) === '') {
             return '';
         }
 

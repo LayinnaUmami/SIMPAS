@@ -28,12 +28,10 @@ use Illuminate\Validation\ValidationException;
  */
 class PendaftaranController extends Controller
 {
-    public function __construct(private PendaftaranService $pendaftaran)
-    {
-    }
+    public function __construct(private PendaftaranService $pendaftaran) {}
 
     /* ------------------------------------------------------------------ */
-    /* Formulir                                                            */
+    /* Formulir */
     /* ------------------------------------------------------------------ */
 
     public function form()
@@ -44,7 +42,7 @@ class PendaftaranController extends Controller
     }
 
     /* ------------------------------------------------------------------ */
-    /* Mengirim kode                                                       */
+    /* Mengirim kode */
     /* ------------------------------------------------------------------ */
 
     public function kirimKode(Request $request)
@@ -125,7 +123,7 @@ class PendaftaranController extends Controller
             }
         }
 
-        $kunci = 'daftar:' . $email . '|' . $request->ip();
+        $kunci = 'daftar:'.$email.'|'.$request->ip();
 
         if (RateLimiter::tooManyAttempts($kunci, (int) config('simpas.registration.otp.max_resend', 3))) {
             throw ValidationException::withMessages([
@@ -186,7 +184,7 @@ class PendaftaranController extends Controller
     }
 
     /* ------------------------------------------------------------------ */
-    /* Verifikasi                                                         */
+    /* Verifikasi */
     /* ------------------------------------------------------------------ */
 
     public function formVerifikasi(Request $request)
@@ -244,7 +242,7 @@ class PendaftaranController extends Controller
     }
 
     /* ------------------------------------------------------------------ */
-    /* Kirim ulang                                                        */
+    /* Kirim ulang */
     /* ------------------------------------------------------------------ */
 
     public function kirimUlang(Request $request)
@@ -262,7 +260,7 @@ class PendaftaranController extends Controller
 
         $email = strtolower(trim($data['email']));
 
-        $kunci = 'daftar:' . $email . '|' . $request->ip();
+        $kunci = 'daftar:'.$email.'|'.$request->ip();
 
         if (RateLimiter::tooManyAttempts($kunci, (int) config('simpas.registration.otp.max_resend', 3))) {
             throw ValidationException::withMessages([
@@ -306,7 +304,7 @@ class PendaftaranController extends Controller
     }
 
     /* ------------------------------------------------------------------ */
-    /* Pembantu                                                           */
+    /* Pembantu */
     /* ------------------------------------------------------------------ */
 
     private function pastikanAktif(): void
@@ -321,6 +319,6 @@ class PendaftaranController extends Controller
         $plus = Str::startsWith($telepon, '+') ? '+' : '';
         $angka = preg_replace('/\D+/', '', $telepon);
 
-        return $plus . ($angka ?? '');
+        return $plus.($angka ?? '');
     }
 }

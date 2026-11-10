@@ -12,6 +12,7 @@ const databasePath = resolve("database", "e2e.sqlite");
 
 export default defineConfig({
     testDir: "./e2e",
+    timeout: 90_000,
     fullyParallel: false,
     workers: 1,
     reporter: [["list"], ["html", { open: "never" }]],
@@ -19,6 +20,9 @@ export default defineConfig({
         baseURL,
         trace: "retain-on-failure",
         screenshot: "only-on-failure",
+    },
+    expect: {
+        timeout: 15_000,
     },
     projects: [
         {

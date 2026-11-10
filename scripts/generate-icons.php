@@ -22,10 +22,10 @@ declare(strict_types=1);
 
 $root = dirname(__DIR__);
 
-const TOP_COLOR    = [5, 150, 105];   // #059669
+const TOP_COLOR = [5, 150, 105];   // #059669
 const BOTTOM_COLOR = [4, 120, 87];    // #047857
-const TEXT_COLOR   = [255, 255, 255]; // putih
-const STAR_COLOR   = [245, 158, 11];  // #f59e0b amber
+const TEXT_COLOR = [255, 255, 255]; // putih
+const STAR_COLOR = [245, 158, 11];  // #f59e0b amber
 
 /** @var array<int, string> Daftar font tebal yang dipakai, dipilih yang pertama tersedia. */
 $fontCandidates = [
@@ -153,7 +153,7 @@ function drawLetterS(GdImage $img, string $fontFile, int $size, float $fontRatio
         return;
     }
 
-    $textWidth  = $bbox[4] - $bbox[0];
+    $textWidth = $bbox[4] - $bbox[0];
     $textHeight = $bbox[5] - $bbox[1];
 
     $x = (int) round(($size - $textWidth) / 2 - $bbox[0]);
@@ -171,7 +171,7 @@ function generateIcon(string $outPath, int $size, string $variant, string $fontF
 
     $isMaskable = ($variant === 'maskable');
 
-    if (!$isMaskable) {
+    if (! $isMaskable) {
         // Radius membulat: 20% untuk ikon biasa, 18% untuk favicon kecil.
         $radiusRatio = ($variant === 'favicon') ? 0.18 : 0.20;
         applyRoundedCorners($img, $size, max(1, (int) round($size * $radiusRatio)));
@@ -201,15 +201,17 @@ function generateIcon(string $outPath, int $size, string $variant, string $fontF
     }
 
     $dir = dirname($outPath);
-    if (!is_dir($dir) && !mkdir($dir, 0775, true) && !is_dir($dir)) {
+    if (! is_dir($dir) && ! mkdir($dir, 0775, true) && ! is_dir($dir)) {
         fwrite(STDERR, "ERROR: gagal membuat direktori {$dir}\n");
         imagedestroy($img);
+
         return false;
     }
 
-    if (!imagepng($img, $outPath)) {
+    if (! imagepng($img, $outPath)) {
         fwrite(STDERR, "ERROR: gagal menulis {$outPath}\n");
         imagedestroy($img);
+
         return false;
     }
 
@@ -232,8 +234,8 @@ echo "Generate ikon SIMPAS (font: {$fontFile})\n";
 
 $failed = 0;
 foreach ($targets as [$rel, $size, $variant]) {
-    $out = $root . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $rel);
-    if (!generateIcon($out, $size, $variant, $fontFile)) {
+    $out = $root.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $rel);
+    if (! generateIcon($out, $size, $variant, $fontFile)) {
         $failed++;
     }
 }

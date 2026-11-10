@@ -38,10 +38,10 @@ class RankingService
             $santriQuery->whereIn('id', $santriIds);
         }
 
-        if (!empty($filter['jenis_kelamin'])) {
+        if (! empty($filter['jenis_kelamin'])) {
             $santriQuery->where('jenis_kelamin', $filter['jenis_kelamin']);
         }
-        if (!empty($filter['kamar'])) {
+        if (! empty($filter['kamar'])) {
             $santriQuery->where('kamar', $filter['kamar']);
         }
 
@@ -61,7 +61,7 @@ class RankingService
             }
 
             $query = $cfg['model']::whereIn('santri_id', $ids);
-            if (!$semua) {
+            if (! $semua) {
                 $query->whereBetween('tanggal', [$mulai, $akhir]);
             }
 
@@ -77,7 +77,7 @@ class RankingService
 
         // --- Poin prestasi ---------------------------------------------------
         $query = Prestasi::whereIn('santri_id', $ids);
-        if (!$semua) {
+        if (! $semua) {
             $query->whereBetween('tanggal', [$mulai, $akhir]);
         }
 
@@ -88,7 +88,7 @@ class RankingService
 
         // --- Poin pelanggaran (sudah negatif) --------------------------------
         $query = Pelanggaran::whereIn('santri_id', $ids);
-        if (!$semua) {
+        if (! $semua) {
             $query->whereBetween('tanggal', [$mulai, $akhir]);
         }
 
