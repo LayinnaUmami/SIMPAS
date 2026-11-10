@@ -204,7 +204,7 @@
 
         <div class="grid">
             <div>
-                <table>
+                <table role="presentation">
                     @if($isActivity)
                         @foreach($keterangan['status'] as $status => $jumlah)
                             <tr>
@@ -235,7 +235,7 @@
             </div>
 
             <div>
-                <table>
+                <table role="presentation">
                     <tr>
                         <td><b>Total Poin</b></td>
                         <td class="poin" style="text-align:right">{{ $keterangan['total_poin'] >= 0 ? '+' : '' }}{{ $keterangan['total_poin'] }}</td>

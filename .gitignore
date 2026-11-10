@@ -48,3 +48,5 @@ database/e2e.sqlite
 
 SANTRI_RQ_SESUAI_TEMPLATE.xlsx
 *.xlsx
+
+.scannerwork/

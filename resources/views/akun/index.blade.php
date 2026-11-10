@@ -42,17 +42,18 @@
             <div class="relative flex-1">
                 <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-slate-400 pointer-events-none"></i>
                 <input type="search" name="q" value="{{ request('q') }}"
-                       placeholder="Cari nama atau kode akun..." class="input pl-10!">
+                       placeholder="Cari nama atau kode akun..." class="input pl-10!"
+                       aria-label="Cari akun">
             </div>
 
-            <select name="peran" class="input sm:w-44">
+            <select name="peran" class="input sm:w-44" aria-label="Filter peran">
                 <option value="">Semua Peran</option>
                 @foreach(['admin' => 'Admin/Pengurus', 'wali' => 'Wali Santri', 'santri' => 'Santri'] as $v => $l)
                     <option value="{{ $v }}" @selected(request('peran') === $v)>{{ $l }}</option>
                 @endforeach
             </select>
 
-            <select name="status" class="input sm:w-36">
+            <select name="status" class="input sm:w-36" aria-label="Filter status">
                 <option value="">Semua Status</option>
                 <option value="aktif" @selected(request('status') === 'aktif')>Aktif</option>
                 <option value="nonaktif" @selected(request('status') === 'nonaktif')>Nonaktif</option>

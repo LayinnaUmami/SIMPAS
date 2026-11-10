@@ -242,7 +242,7 @@
                         <label class="label" for="wali-search">Tautkan ke wali yang sudah ada</label>
                         <input id="wali-search" type="search" class="input mb-2"
                                placeholder="Cari nama atau kode wali..." autocomplete="off">
-                        <select id="wali_id" name="wali_id" class="select">
+                        <select id="wali_id" name="wali_id" class="select" aria-label="Pilih akun wali">
                             <option value="">— {{ $santri->exists ? 'Tanpa akun wali' : 'Buat akun wali baru' }} —</option>
                             @foreach($waliOptions as $wali)
                                 <option value="{{ $wali->id }}"

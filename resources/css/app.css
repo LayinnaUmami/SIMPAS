@@ -601,7 +601,7 @@ body {
 }
 
 /* High contrast mode support */
-@media (prefers-contrast: high) {
+@media (prefers-contrast: more) {
     .card-premium { @apply border-2 border-slate-400 }
     .btn-primary { @apply border-2 border-brand-800 }
     .input { @apply border-2 border-slate-400 }
