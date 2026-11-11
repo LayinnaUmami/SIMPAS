@@ -6,6 +6,7 @@ use App\Models\Khataman;
 use App\Models\Pelanggaran;
 use App\Models\Prestasi;
 use App\Models\Santri;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

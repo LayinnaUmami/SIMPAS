@@ -107,8 +107,8 @@ class SampahController extends Controller
 
         \Log::info('hapusSemua started', ['type' => $type, 'model' => $modelClass]);
 
-        // Gunakan forceDelete untuk hard delete (bypass soft delete)
-        $deleted = $modelClass::query()->forceDelete();
+        // Hanya hapus permanen data yang sudah berada di Sampah.
+        $deleted = $modelClass::onlyTrashed()->forceDelete();
 
         \Log::info('hapusSemua completed', ['deleted' => $deleted]);
 
