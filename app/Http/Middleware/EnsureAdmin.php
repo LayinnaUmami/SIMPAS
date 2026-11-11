@@ -16,7 +16,7 @@ class EnsureAdmin
     {
         $user = $request->user();
 
-        if (!$user || !$user->isAdmin()) {
+        if (! $user || ! $user->isAdmin()) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Anda tidak memiliki akses.'], 403);
             }

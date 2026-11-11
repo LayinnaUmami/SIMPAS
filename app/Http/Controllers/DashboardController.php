@@ -82,7 +82,7 @@ class DashboardController extends Controller
             ];
         }
 
-        $bulanLabel = PeriodResolver::BULAN[$bulanIni['mulai']->month] . ' ' . $bulanIni['mulai']->year;
+        $bulanLabel = PeriodResolver::BULAN[$bulanIni['mulai']->month].' '.$bulanIni['mulai']->year;
 
         return view('dashboard', [
             'user' => $user,

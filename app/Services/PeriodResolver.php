@@ -27,10 +27,10 @@ class PeriodResolver
 
         switch ($periode) {
             case 'hari':
-                $tanggal = !empty($input['tanggal']) ? Carbon::parse($input['tanggal']) : $now->copy();
+                $tanggal = ! empty($input['tanggal']) ? Carbon::parse($input['tanggal']) : $now->copy();
                 $mulai = $tanggal->copy()->startOfDay();
                 $akhir = $tanggal->copy()->endOfDay();
-                $label = 'Periode Harian: ' . $mulai->translatedFormat('d F Y');
+                $label = 'Periode Harian: '.$mulai->translatedFormat('d F Y');
                 break;
 
             case 'minggu':
@@ -44,8 +44,8 @@ class PeriodResolver
 
                 $mulai = Carbon::now()->setISODate($tahun, $minggu, 1)->startOfDay();
                 $akhir = $mulai->copy()->addDays(6)->endOfDay();
-                $label = "Periode Mingguan: Minggu ke-{$minggu} / {$tahun} (" .
-                    $mulai->translatedFormat('d F Y') . ' - ' . $akhir->translatedFormat('d F Y') . ')';
+                $label = "Periode Mingguan: Minggu ke-{$minggu} / {$tahun} (".
+                    $mulai->translatedFormat('d F Y').' - '.$akhir->translatedFormat('d F Y').')';
                 break;
 
             case 'tahun':
@@ -56,14 +56,14 @@ class PeriodResolver
                 break;
 
             case 'custom':
-                $mulai = !empty($input['mulai']) ? Carbon::parse($input['mulai']) : $now->copy()->startOfMonth();
-                $akhir = !empty($input['akhir']) ? Carbon::parse($input['akhir']) : $now->copy()->endOfMonth();
+                $mulai = ! empty($input['mulai']) ? Carbon::parse($input['mulai']) : $now->copy()->startOfMonth();
+                $akhir = ! empty($input['akhir']) ? Carbon::parse($input['akhir']) : $now->copy()->endOfMonth();
                 if ($akhir->lt($mulai)) {
                     [$mulai, $akhir] = [$akhir, $mulai];
                 }
                 $mulai = $mulai->copy()->startOfDay();
                 $akhir = $akhir->copy()->endOfDay();
-                $label = 'Periode Custom: ' . $mulai->translatedFormat('d F Y') . ' - ' . $akhir->translatedFormat('d F Y');
+                $label = 'Periode Custom: '.$mulai->translatedFormat('d F Y').' - '.$akhir->translatedFormat('d F Y');
                 break;
 
             case 'semua':
@@ -71,7 +71,7 @@ class PeriodResolver
                 $periode = 'semua';
                 $mulai = Carbon::create(1900, 1, 1)->startOfDay();
                 $akhir = $now->copy()->endOfDay();
-                $label = 'Seluruh Periode: ' . $mulai->translatedFormat('d F Y') . ' - ' . $akhir->translatedFormat('d F Y');
+                $label = 'Seluruh Periode: '.$mulai->translatedFormat('d F Y').' - '.$akhir->translatedFormat('d F Y');
                 break;
 
             case 'bulan':
@@ -82,7 +82,7 @@ class PeriodResolver
                 $bulan = min(max($bulan, 1), 12);
                 $mulai = Carbon::create($tahun, $bulan, 1)->startOfDay();
                 $akhir = $mulai->copy()->endOfMonth()->endOfDay();
-                $label = 'Periode Bulanan: ' . $mulai->translatedFormat('d F Y') . ' - ' . $akhir->translatedFormat('d F Y');
+                $label = 'Periode Bulanan: '.$mulai->translatedFormat('d F Y').' - '.$akhir->translatedFormat('d F Y');
                 break;
         }
 
@@ -97,7 +97,7 @@ class PeriodResolver
     /** Minggu ISO yang berisi sebuah tanggal, dipakai otomatisasi pelanggaran. */
     public static function weekKey(Carbon $date): string
     {
-        return $date->format('Y') . '-W' . sprintf('%02d', $date->isoWeek);
+        return $date->format('Y').'-W'.sprintf('%02d', $date->isoWeek);
     }
 
     /** Awal minggu (Senin) yang berisi tanggal. */

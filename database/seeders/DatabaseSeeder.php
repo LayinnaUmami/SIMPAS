@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         /* ---------------------------------------------------------------- */
-        /* AKUN                                                             */
+        /* AKUN */
         /* ---------------------------------------------------------------- */
         User::updateOrCreate(['username' => 'admin'], [
             'name' => 'Admin Pengurus',
@@ -28,19 +28,19 @@ class DatabaseSeeder extends Seeder
         ]);
 
         /* ---------------------------------------------------------------- */
-        /* DATA SANTRI (identitas saja - bagian 5 & 6)                       */
+        /* DATA SANTRI (identitas saja - bagian 5 & 6) */
         /* ---------------------------------------------------------------- */
         $data = [
-            ['240001', 'Ahmad Fauzan', 'Putra', 'Al-Hikmah', 'Pelajar', 'Diniyah', "1 Wustho"],
-            ['240002', 'Muhammad Ali', 'Putra', 'Al-Falah', 'Pelajar', 'Diniyah', "2 Wustho"],
+            ['240001', 'Ahmad Fauzan', 'Putra', 'Al-Hikmah', 'Pelajar', 'Diniyah', '1 Wustho'],
+            ['240002', 'Muhammad Ali', 'Putra', 'Al-Falah', 'Pelajar', 'Diniyah', '2 Wustho'],
             ['240003', 'Siti Aisyah', 'Putri', 'Al-Hikmah Putri', 'Pelajar', 'Diniyah', "1 'Ulya"],
-            ['240004', 'Abdurrahman Hakim', 'Putra', 'Al-Ikhlas', 'Mahasiswa', 'Diniyah', "3 Wustho"],
+            ['240004', 'Abdurrahman Hakim', 'Putra', 'Al-Ikhlas', 'Mahasiswa', 'Diniyah', '3 Wustho'],
             ['240005', 'Zahra Nabila', 'Putri', 'An-Nur Putri', 'Pelajar', 'Diniyah', "2 'Ulya"],
             ['240006', 'Rizky Maulana', 'Putra', 'An-Nur', 'Pelajar', 'Asatidzah', null],
-            ['240007', 'Fatimah Az-Zahra', 'Putri', 'Al-Falah Putri', 'S1', 'Diniyah', "1 Wustho"],
+            ['240007', 'Fatimah Az-Zahra', 'Putri', 'Al-Falah Putri', 'S1', 'Diniyah', '1 Wustho'],
             ['240008', 'Hafidz Ramadhan', 'Putra', 'Al-Muttaqin', 'Takhasus', 'Mutimin', null],
             ['240009', 'Khadijah Nurul', 'Putri', 'An-Nur Putri', 'Pelajar', 'Diniyah', "3 'Ulya"],
-            ['240010', 'Ibrahim Yusuf', 'Putra', 'Al-Hikmah', 'Pelajar', 'Diniyah', "2 Wustho"],
+            ['240010', 'Ibrahim Yusuf', 'Putra', 'Al-Hikmah', 'Pelajar', 'Diniyah', '2 Wustho'],
             ['240011', 'Aminatus Salimah', 'Putri', 'Al-Hikmah Putri', 'Pelajar', 'Diniyah', "1 'Ulya"],
             ['240012', 'Abdullah Karim', 'Putra', 'Al-Falah', 'Mahasiswa', 'Asatidzah', null],
         ];
@@ -51,19 +51,19 @@ class DatabaseSeeder extends Seeder
             $santri = Santri::updateOrCreate(['nis' => $nis], [
                 'nama' => $nama,
                 'jenis_kelamin' => $jk,
-                'alamat' => 'Jl. Pesantren No. ' . ($i + 1) . ', Kec. Simpang, Kab. Nganjuk',
+                'alamat' => 'Jl. Pesantren No. '.($i + 1).', Kec. Simpang, Kab. Nganjuk',
                 'kamar' => $kamar,
                 'status_aktif' => 'Aktif',
                 'pendidikan_formal' => $formal,
                 'jenis_diniyah' => $jenisDiniyah,
                 'level_diniyah' => $level,
-                'nama_ayah' => 'Bapak ' . $nama,
+                'nama_ayah' => 'Bapak '.$nama,
                 'pekerjaan_ayah' => ['Petani', 'Wiraswasta', 'Guru', 'Karyawan Swasta'][$i % 4],
-                'nama_ibu' => 'Ibu ' . explode(' ', $nama)[0],
+                'nama_ibu' => 'Ibu '.explode(' ', $nama)[0],
                 'pekerjaan_ibu' => ['Ibu Rumah Tangga', 'Guru MI', 'Pedagang'][$i % 3],
                 'nama_wali' => $i % 3 === 0 ? 'Bapak KH. Abdurrahman' : null,
                 'pekerjaan_wali' => $i % 3 === 0 ? 'Pengasuh' : null,
-                'no_hp' => '081298765' . str_pad((string) ($i + 1), 3, '0', STR_PAD_LEFT),
+                'no_hp' => '081298765'.str_pad((string) ($i + 1), 3, '0', STR_PAD_LEFT),
                 'alamat_wali' => $i % 3 === 0 ? 'Jl. Wali No. 12' : null,
             ]);
 
@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------------------------------------------------------- */
-        /* AKUN WALI DEMO (satu wali dengan lebih dari satu anak)             */
+        /* AKUN WALI DEMO (satu wali dengan lebih dari satu anak) */
         /* ---------------------------------------------------------------- */
         $waliDemo = User::updateOrCreate(['username' => 'wali-demo'], [
             'name' => 'Wali Demo Multi Anak',
@@ -111,10 +111,10 @@ class DatabaseSeeder extends Seeder
         ])->saveQuietly();
 
         foreach ($santris as $santri) {
-            $username = 'wali' . str_pad((string) $santri->id, 3, '0', STR_PAD_LEFT);
+            $username = 'wali'.str_pad((string) $santri->id, 3, '0', STR_PAD_LEFT);
             $wali = User::updateOrCreate(['username' => $username], [
-                'name' => 'Wali ' . $santri->nama,
-                'password' => Hash::make($username . '123'),
+                'name' => 'Wali '.$santri->nama,
+                'password' => Hash::make($username.'123'),
                 'role' => User::ROLE_WALI,
                 'santri_id' => $santri->id,
                 'email_verified_at' => now(),
@@ -125,7 +125,7 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------------------------------------------------------- */
-        /* RIWAYAT KHATAMAN (bagian 7 - dapat berkali-kali)                  */
+        /* RIWAYAT KHATAMAN (bagian 7 - dapat berkali-kali) */
         /* ---------------------------------------------------------------- */
         Khataman::updateOrCreate(
             ['santri_id' => $santris[0]->id, 'jenis_khatam' => '30 Juz', 'tahun' => 2024],
@@ -145,7 +145,7 @@ class DatabaseSeeder extends Seeder
         );
 
         /* ---------------------------------------------------------------- */
-        /* ABSENSI 30 HARI TERAKHIR                                          */
+        /* ABSENSI 30 HARI TERAKHIR */
         /* ---------------------------------------------------------------- */
         $points = config('simpas.points');
 
@@ -201,7 +201,7 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------------------------------------------------------- */
-        /* PRESTASI (bagian 21)                                              */
+        /* PRESTASI (bagian 21) */
         /* ---------------------------------------------------------------- */
         $prestasi = [
             [$santris[0], 'Al-Qur\'an', 'Juara 1 Tahfidz 5 Juz', 'Kecamatan', 5, 'Lembaga Tahfidz', 'Selamat!', 10],
@@ -232,7 +232,7 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------------------------------------------------------- */
-        /* PELANGGARAN MANUAL (bagian 22)                                    */
+        /* PELANGGARAN MANUAL (bagian 22) */
         /* ---------------------------------------------------------------- */
         $pelanggaran = [
             [$santris[9], 'Terlambat', 'Ringan', 'Terlambat subuh 2 kali', 2, -3],
@@ -257,7 +257,7 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------------------------------------------------------- */
-        /* PELANGGARAN OTOMATIS (bagian 20) - mencegah duplikasi             */
+        /* PELANGGARAN OTOMATIS (bagian 20) - mencegah duplikasi */
         /* ---------------------------------------------------------------- */
         $oto = new AutoViolationService;
         foreach (array_keys(config('simpas.activities')) as $key) {

@@ -14,7 +14,9 @@ class User extends Authenticatable
     use HasFactory, Notifiable, SoftDeletes;
 
     public const ROLE_ADMIN = 'admin';
+
     public const ROLE_WALI = 'wali';
+
     public const ROLE_SANTRI = 'santri';
 
     protected $fillable = [
@@ -52,7 +54,7 @@ class User extends Authenticatable
     }
 
     /* ------------------------------------------------------------------ */
-    /* Relasi                                                             */
+    /* Relasi */
     /* ------------------------------------------------------------------ */
 
     /**
@@ -86,7 +88,7 @@ class User extends Authenticatable
     }
 
     /* ------------------------------------------------------------------ */
-    /* Relasi anak                                                       */
+    /* Relasi anak */
     /* ------------------------------------------------------------------ */
 
     /**
@@ -158,7 +160,7 @@ class User extends Authenticatable
     }
 
     /* ------------------------------------------------------------------ */
-    /* Peran                                                              */
+    /* Peran */
     /* ------------------------------------------------------------------ */
 
     public function isAdmin(): bool
@@ -196,7 +198,7 @@ class User extends Authenticatable
     }
 
     /* ------------------------------------------------------------------ */
-    /* Status akun                                                        */
+    /* Status akun */
     /* ------------------------------------------------------------------ */
 
     /**
@@ -261,7 +263,7 @@ class User extends Authenticatable
     }
 
     /* ------------------------------------------------------------------ */
-    /* Label                                                              */
+    /* Label */
     /* ------------------------------------------------------------------ */
 
     public function getPeranLabelAttribute(): string
@@ -276,7 +278,7 @@ class User extends Authenticatable
     public function getFotoUrlAttribute(): string
     {
         if ($this->foto) {
-            return asset('storage/' . $this->foto);
+            return asset('storage/'.$this->foto);
         }
 
         return asset('images/logo-pondok.png');

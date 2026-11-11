@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\DB;
 class AttendanceService
 {
     /**
-     * @param  string  $type   key aktivitas (jamaah, pengajian, ...)
+     * @param  string  $type  key aktivitas (jamaah, pengajian, ...)
      * @param  string  $tanggal  tanggal Y-m-d
-     * @param  array   $rows   [ ['santri_id'=>1, 'sesi'=>'Subuh', 'status'=>'Hadir'], ... ]
+     * @param  array  $rows  [ ['santri_id'=>1, 'sesi'=>'Subuh', 'status'=>'Hadir'], ... ]
      * @return array{created:int, updated:int, pelanggaran:int}
      */
     public function save(string $type, string $tanggal, array $rows): array
@@ -36,7 +36,7 @@ class AttendanceService
                 $sesi = (string) ($row['sesi'] ?? '');
                 $status = (string) ($row['status'] ?? '');
 
-                if (!$santriId || $sesi === '' || $status === '') {
+                if (! $santriId || $sesi === '' || $status === '') {
                     continue;
                 }
 
@@ -81,7 +81,7 @@ class AttendanceService
      * Ambil data absensi untuk ditampilkan pada form input.
      * Data lama (punya record) dipakai sebagai nilai awal.
      *
-     * @return array<int, array<string, string>>  [santri_id => [sesi => status]]
+     * @return array<int, array<string, string>> [santri_id => [sesi => status]]
      */
     public function currentMap(string $type, string $tanggal): array
     {
@@ -110,7 +110,7 @@ class AttendanceService
      * Santri aktif untuk aktivitas tertentu.
      * Untuk Diniyah: hanya santri dengan jenis_diniyah = 'Diniyah' (bukan Mutimin/Asatidzah)
      */
-    public function santriAktif(string $type = null)
+    public function santriAktif(?string $type = null)
     {
         $query = Santri::aktif()->orderBy('nis');
 

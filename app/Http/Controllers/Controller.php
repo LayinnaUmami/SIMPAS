@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Santri;
-use Illuminate\Http\Request;
 
 abstract class Controller
 {
     /** Hanya Admin/Pengurus yang boleh mengubah data (bagian 3). */
     protected function requireAdmin(): void
     {
-        if (!auth()->user()?->isAdmin()) {
+        if (! auth()->user()?->isAdmin()) {
             abort(403, 'Maaf, akses hanya untuk Admin/Pengurus.');
         }
     }

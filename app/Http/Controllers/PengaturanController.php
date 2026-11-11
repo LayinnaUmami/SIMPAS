@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Khataman;
+use App\Models\Pelanggaran;
+use App\Models\Prestasi;
 use App\Models\Santri;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -113,11 +116,11 @@ class PengaturanController extends Controller
             }
 
             // Prestasi dan pelanggaran
-            $ringkasan['prestasis'] = \App\Models\Prestasi::query()->forceDelete();
-            $ringkasan['pelanggarans'] = \App\Models\Pelanggaran::query()->forceDelete();
+            $ringkasan['prestasis'] = Prestasi::query()->forceDelete();
+            $ringkasan['pelanggarans'] = Pelanggaran::query()->forceDelete();
 
             // Khataman
-            $ringkasan['khatamans'] = \App\Models\Khataman::query()->forceDelete();
+            $ringkasan['khatamans'] = Khataman::query()->forceDelete();
 
             // Relasi wali-anak
             $ringkasan['guardian_santri'] = DB::table('guardian_santri')->delete();
@@ -126,13 +129,13 @@ class PengaturanController extends Controller
             $ringkasan['account_verifications'] = DB::table('account_verifications')->delete();
 
             // Santri terakhir, karena semua tabel di atas menunjuk ke santris.
-            $ringkasan['santris'] = \App\Models\Santri::query()->forceDelete();
+            $ringkasan['santris'] = Santri::query()->forceDelete();
 
             // Akun wali yang terhubung ke Santri yang sudah hilang tidak lagi
             // punya data anak. Kolom santri_id diset null supaya tidak menunjuk
             // baris yang sudah tidak ada (FK ON DELETE SET NULL seharusnya
             // sudah melakukan ini, tetapi dipastikan di sini).
-            \App\Models\User::where('role', '!=', 'admin')
+            User::where('role', '!=', 'admin')
                 ->update(['santri_id' => null]);
         });
 

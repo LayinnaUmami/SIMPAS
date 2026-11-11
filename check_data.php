@@ -1,13 +1,15 @@
 <?php
+
 require 'vendor/autoload.php';
 $app = require 'bootstrap/app.php';
-$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+$app->make(Kernel::class)->bootstrap();
 
+use App\Models\Khataman;
+use App\Models\Pelanggaran;
+use App\Models\Prestasi;
 use App\Models\Santri;
 use App\Models\User;
-use App\Models\Prestasi;
-use App\Models\Pelanggaran;
-use App\Models\Khataman;
+use Illuminate\Contracts\Console\Kernel;
 
 echo "=== SANTRI ===\n";
 $count = Santri::count();
@@ -18,19 +20,19 @@ foreach (Santri::orderBy('id')->get() as $s) {
 
 echo "\n=== USER WALI ===\n";
 $walis = User::where('role', 'wali')->get();
-echo "Total Wali: " . $walis->count() . "\n";
+echo 'Total Wali: '.$walis->count()."\n";
 foreach ($walis as $w) {
-    echo "  {$w->username} | {$w->name} | santri_id: {$w->santri_id} | santri: " . ($w->santri ? $w->santri->nama : 'NULL') . "\n";
+    echo "  {$w->username} | {$w->name} | santri_id: {$w->santri_id} | santri: ".($w->santri ? $w->santri->nama : 'NULL')."\n";
 }
 
 echo "\n=== PRESTASI ===\n";
-echo "Total: " . Prestasi::count() . "\n";
+echo 'Total: '.Prestasi::count()."\n";
 
 echo "\n=== PELANGGARAN ===\n";
-echo "Total: " . Pelanggaran::count() . "\n";
+echo 'Total: '.Pelanggaran::count()."\n";
 
 echo "\n=== KHATAMAN ===\n";
-echo "Total: " . Khataman::count() . "\n";
+echo 'Total: '.Khataman::count()."\n";
 
 echo "\n=== ACTIVITY SAMPLE ===\n";
 foreach (config('simpas.activities') as $key => $cfg) {

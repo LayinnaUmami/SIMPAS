@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -41,6 +42,6 @@ class AppServiceProvider extends ServiceProvider
 
         // Bahasa Indonesia untuk format tanggal & angka
         setlocale(LC_TIME, 'id_ID.UTF-8', 'id_ID', 'indonesian');
-        \Carbon\Carbon::setLocale(config('app.locale', 'id'));
+        Carbon::setLocale(config('app.locale', 'id'));
     }
 }

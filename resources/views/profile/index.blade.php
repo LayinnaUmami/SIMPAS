@@ -14,11 +14,12 @@
             <div class="relative w-24 h-24 mx-auto mb-4">
                 <img src="{{ $user->foto_url }}" alt="{{ $user->name }}"
                      class="w-full h-full rounded-2xl object-cover shadow-lg border-4 border-white shadow-slate-200/50">
-                <label for="foto" class="absolute bottom-0 right-0 w-8 h-8 rounded-xl bg-brand-600 text-white
+                <label for="foto-avatar" class="absolute bottom-0 right-0 w-8 h-8 rounded-xl bg-brand-600 text-white
                                            grid place-items-center cursor-pointer hover:bg-brand-700 transition-colors
                                            border-4 border-white shadow-lg">
                     <i data-lucide="camera" class="size-4"></i>
-                    <input id="foto" name="foto" type="file" accept="image/*"
+                    <span class="sr-only">Ubah foto profil</span>
+                    <input id="foto-avatar" name="foto" type="file" accept="image/*"
                            class="sr-only" form="profile-form">
                 </label>
             </div>

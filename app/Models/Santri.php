@@ -17,7 +17,7 @@ class Santri extends Model
     ];
 
     /* ------------------------------------------------------------------ */
-    /* Relasi                                                             */
+    /* Relasi */
     /* ------------------------------------------------------------------ */
 
     public function khatamans()
@@ -54,18 +54,18 @@ class Santri extends Model
     }
 
     /* ------------------------------------------------------------------ */
-    /* Aksesor                                                            */
+    /* Aksesor */
     /* ------------------------------------------------------------------ */
 
     public function getFotoUrlAttribute(): ?string
     {
-        if (!$this->foto) {
+        if (! $this->foto) {
             return null;
         }
 
         return str_starts_with($this->foto, 'http') || str_starts_with($this->foto, '/')
             ? $this->foto
-            : asset('storage/' . $this->foto);
+            : asset('storage/'.$this->foto);
     }
 
     public function getInitialsAttribute(): string
@@ -76,7 +76,7 @@ class Santri extends Model
             return strtoupper(substr($parts[0], 0, 2));
         }
 
-        return strtoupper(substr($parts[0], 0, 1) . substr(end($parts), 0, 1));
+        return strtoupper(substr($parts[0], 0, 1).substr(end($parts), 0, 1));
     }
 
     public function getLevelDiniyahTampilAttribute(): string
@@ -96,7 +96,7 @@ class Santri extends Model
 
     public function scopeCari($q, ?string $keyword)
     {
-        if (!$keyword) {
+        if (! $keyword) {
             return $q;
         }
 

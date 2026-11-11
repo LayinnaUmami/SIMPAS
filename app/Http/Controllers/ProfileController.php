@@ -12,9 +12,9 @@ class ProfileController extends Controller
     {
         return view('profile.index', [
             // Relasi dimuat sebagai 'santris' (daftar anak). Nama 'santri' kini
-        // hanya accessor yang mengembalikan anak utama, dan accessor bukan
-        // relasi Eloquent sehingga tidak bisa di-load.
-        'user' => auth()->user()->load('santris'),
+            // hanya accessor yang mengembalikan anak utama, dan accessor bukan
+            // relasi Eloquent sehingga tidak bisa di-load.
+            'user' => auth()->user()->load('santris'),
         ]);
     }
 

@@ -80,7 +80,7 @@ class LaporanController extends Controller
             'cari' => $cari,
             'rows' => $data['rows'],
             'keterangan' => $data['keterangan'],
-            'isActivity' => !in_array($jenis, ['prestasi', 'pelanggaran']),
+            'isActivity' => ! in_array($jenis, ['prestasi', 'pelanggaran']),
             'sessions' => $jenis !== 'prestasi' && $jenis !== 'pelanggaran'
                 ? config("simpas.activities.{$jenis}.sessions")
                 : [],
@@ -122,8 +122,8 @@ class LaporanController extends Controller
             'cari' => $cari,
             'rows' => $data['rows'],
             'keterangan' => $data['keterangan'],
-            'isActivity' => !in_array($jenis, ['prestasi', 'pelanggaran']),
-            'sessions' => !in_array($jenis, ['prestasi', 'pelanggaran'])
+            'isActivity' => ! in_array($jenis, ['prestasi', 'pelanggaran']),
+            'sessions' => ! in_array($jenis, ['prestasi', 'pelanggaran'])
                 ? config("simpas.activities.{$jenis}.sessions")
                 : [],
         ]);
@@ -165,11 +165,11 @@ class LaporanController extends Controller
         $keterangan['Total Absensi'] = $data['keterangan']['total_absensi'];
         $keterangan['Total Poin'] = $data['keterangan']['total_poin'];
 
-        $nama = 'LAPORAN_' . strtoupper($jenis) . '_' . $periode['mulai']->format('Ymd') . '_' . $periode['akhir']->format('Ymd');
+        $nama = 'LAPORAN_'.strtoupper($jenis).'_'.$periode['mulai']->format('Ymd').'_'.$periode['akhir']->format('Ymd');
 
         return ExcelExporter::download($nama, $headers, $rows, [
             'title' => "LAPORAN {$label} - SIMPAS",
-            'periode' => $periode['label'] . ($cari ? " | Pencarian: {$cari}" : ''),
+            'periode' => $periode['label'].($cari ? " | Pencarian: {$cari}" : ''),
             'keterangan' => $keterangan,
         ]);
     }

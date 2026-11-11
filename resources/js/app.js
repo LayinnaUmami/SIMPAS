@@ -211,7 +211,7 @@ function initCountUp() {
     if (!els.length) return;
 
     const animate = (el) => {
-        const target = parseFloat(el.dataset.count);
+        const target = Number.parseFloat(el.dataset.count);
         const duration = 1100;
         const start = performance.now();
         const prefix = el.dataset.prefix || '';
@@ -392,7 +392,7 @@ function initPoinPreview() {
         let total = 0;
         selects.forEach((sel) => {
             const opt = sel.selectedOptions[0];
-            total += parseInt(opt?.dataset.poin ?? 0, 10);
+            total += Number.parseInt(opt?.dataset.poin ?? 0, 10);
 
             // warnai cell sesuai status
             const wrap = sel.closest('[data-cell]');
@@ -472,7 +472,7 @@ function initSessionExpiration() {
     let warningShown = false;
 
     const checkSession = () => {
-        const lastActivity = parseInt(localStorage.getItem('lastActivity') || '0', 10);
+        const lastActivity = Number.parseInt(localStorage.getItem('lastActivity') || '0', 10);
         const now = Date.now();
 
         if (!lastActivity) {
@@ -491,7 +491,7 @@ function initSessionExpiration() {
         if (timeLeft <= warningTime && !warningShown) {
             warningShown = true;
             if (confirm('Sesi Anda akan berakhir dalam 5 menit. Klik OK untuk memperpanjang sesi.')) {
-                extendSession();
+                void extendSession();
             }
         }
     };

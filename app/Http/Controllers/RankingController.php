@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Santri;
 use App\Services\PeriodResolver;
 use App\Services\RankingService;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class RankingController extends Controller
             'periode' => $periode,
             'filter' => $filter,
             'input' => $request->all(),
-            'kamar' => \App\Models\Santri::aktif()->whereNotNull('kamar')->distinct()->pluck('kamar')->sort()->values(),
+            'kamar' => Santri::aktif()->whereNotNull('kamar')->distinct()->pluck('kamar')->sort()->values(),
             'tahun' => $now->year,
             'minggu' => (int) $request->input('minggu', $now->isoWeek),
             'bulan' => (int) $request->input('bulan', $now->month),

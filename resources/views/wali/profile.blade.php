@@ -26,6 +26,7 @@
                                            grid place-items-center cursor-pointer hover:bg-brand-700 transition-colors
                                            border-4 border-white shadow-lg">
                     <i data-lucide="camera" class="size-4"></i>
+                    <span class="sr-only">Ubah foto profil</span>
                     <input id="foto" name="foto" type="file" accept="image/*"
                            class="sr-only" form="profile-form">
                 </label>

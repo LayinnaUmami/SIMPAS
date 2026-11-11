@@ -97,6 +97,7 @@
                                 @endphp
                                 <td class="text-center absen-cell" data-cell>
                                     <select name="data[{{ $santri->id }}][{{ $sesi }}]"
+                                            aria-label="Status absensi sesi {{ $sesi }}"
                                             data-poin-select
                                             class="select absen-select !text-center {{ auth()->user()->isAdmin() ? '' : 'pointer-events-none opacity-70' }}"
                                             {{ auth()->user()->isAdmin() ? '' : 'disabled' }}>

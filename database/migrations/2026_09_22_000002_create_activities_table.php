@@ -22,7 +22,7 @@ return new class extends Migration
     public function up(): void
     {
         foreach (config('simpas.activities') as $key => $cfg) {
-            Schema::create($cfg['table'], function (Blueprint $table) use ($key, $cfg) {
+            Schema::create($cfg['table'], function (Blueprint $table) use ($cfg) {
                 $table->id();
                 $table->foreignId('santri_id')->constrained()->cascadeOnDelete();
                 $table->date('tanggal');

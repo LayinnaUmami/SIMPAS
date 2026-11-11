@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Pelanggaran;
 use App\Models\Prestasi;
-use Carbon\Carbon;
 
 /**
  * LAPORAN (bagian 26 - 31)
@@ -48,8 +47,8 @@ class ReportService
         // Kelompokkan: 1 baris = 1 santri + 1 tanggal (kolom = sesi)
         $groups = [];
         foreach ($records as $rec) {
-            $key = $rec->santri_id . '|' . $rec->tanggal->format('Y-m-d');
-            if (!isset($groups[$key])) {
+            $key = $rec->santri_id.'|'.$rec->tanggal->format('Y-m-d');
+            if (! isset($groups[$key])) {
                 $groups[$key] = [
                     'santri' => $rec->santri,
                     'tanggal' => $rec->tanggal,

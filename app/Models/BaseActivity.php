@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Carbon;
 
 /**
  * Kelas dasar seluruh aktivitas absensi (Jamaah, Pengajian, Deresan,
@@ -28,7 +27,7 @@ abstract class BaseActivity extends Model
 
     public static function cfg(): array
     {
-        return config('simpas.activities.' . static::typeKey());
+        return config('simpas.activities.'.static::typeKey());
     }
 
     public static function label(): string
@@ -70,7 +69,7 @@ abstract class BaseActivity extends Model
 
     public function scopeCariSantri($q, ?string $keyword)
     {
-        if (!$keyword) {
+        if (! $keyword) {
             return $q;
         }
 
